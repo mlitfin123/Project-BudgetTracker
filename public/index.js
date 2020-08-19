@@ -151,3 +151,21 @@ document.querySelector("#add-btn").onclick = function() {
 document.querySelector("#sub-btn").onclick = function() {
   sendTransaction(false);
 };
+
+async function clearData() {
+  const clearData = confirm("Are you sure you want to delete all budget data?");
+  if (clearData) {
+    try {
+      const deleted = await fetch("/api/deleteAll", {
+        method: "DELETE"
+      });
+      res.json(deleted);
+    }catch (err) {
+      clearIndexDBdata();
+    }
+  }
+}
+
+document.querySelector("#del-btn").onclick = function() {
+  clearData();
+};
